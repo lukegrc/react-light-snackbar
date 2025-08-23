@@ -1,0 +1,42 @@
+# Source files
+src/
+examples/
+
+# Development files
+.eslintrc.js
+jest.config.js
+rollup.config.js
+tsconfig.json
+
+# Test files
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+src/setupTests.ts
+
+# Build artifacts
+*.tsbuildinfo
+
+# Git files
+.git/
+.gitignore
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules/
