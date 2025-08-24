@@ -1,6 +1,6 @@
 {
   "name": "react-light-snackbar",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "A lightweight, customizable snackbar component for React with TypeScript support",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
