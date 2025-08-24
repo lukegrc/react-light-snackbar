@@ -40,42 +40,47 @@ jobs:
         if: github.event_name == 'pull_request'
         with:
           script: |
-            const fs = require('fs');
-            let testOutput = 'No test output available';
-            let coverageOutput = 'No coverage output available';
-
             try {
-              if (fs.existsSync('test-results.txt')) {
-                testOutput = fs.readFileSync('test-results.txt', 'utf8');
+              const fs = require('fs');
+              let testOutput = 'No test output available';
+              let coverageOutput = 'No coverage output available';
+              
+              try {
+                if (fs.existsSync('test-results.txt')) {
+                  testOutput = fs.readFileSync('test-results.txt', 'utf8');
+                }
+              } catch (e) {
+                console.log('Could not read test results');
               }
-            } catch (e) {
-              console.log('Could not read test results');
-            }
-
-            try {
-              if (fs.existsSync('coverage.txt')) {
-                coverageOutput = fs.readFileSync('coverage.txt', 'utf8');
+              
+              try {
+                if (fs.existsSync('coverage.txt')) {
+                  coverageOutput = fs.readFileSync('coverage.txt', 'utf8');
+                }
+              } catch (e) {
+                console.log('Could not read coverage results');
               }
-            } catch (e) {
-              console.log('Could not read coverage results');
+              
+              const comment = `## Test Results for Node.js ${{ matrix.node-version }}
+              
+              ### Test Output:
+              \`\`\`
+              ${testOutput}
+              \`\`\`
+              
+              ### Coverage Output:
+              \`\`\`
+              ${coverageOutput}
+              \`\`\`
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            } catch (error) {
+              console.log('Could not comment on PR:', error.message);
+              // Continue without failing the workflow
             }
-
-            const comment = `## Test Results for Node.js ${{ matrix.node-version }}
-
-            ### Test Output:
-            \`\`\`
-            ${testOutput}
-            \`\`\`
-
-            ### Coverage Output:
-            \`\`\`
-            ${coverageOutput}
-            \`\`\`
-            `;
-
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: comment
-            });
