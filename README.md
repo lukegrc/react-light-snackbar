@@ -29,16 +29,16 @@ pnpm add react-light-snackbar
 ## Quick Start
 
 ```tsx
-import React from 'react';
-import { SnackbarProvider, useSnackbar } from 'react-light-snackbar';
+import React from "react";
+import { SnackbarProvider, useSnackbar } from "react-light-snackbar";
 
 const MyComponent = () => {
   const { showSnackbar } = useSnackbar();
 
   const handleClick = () => {
     showSnackbar({
-      message: 'Hello, World!',
-      variant: 'success',
+      message: "Hello, World!",
+      variant: "success",
     });
   };
 
@@ -57,36 +57,32 @@ const App = () => (
 ### 1. Wrap your app with SnackbarProvider
 
 ```tsx
-import { SnackbarProvider } from 'react-light-snackbar';
+import { SnackbarProvider } from "react-light-snackbar";
 
 function App() {
-  return (
-    <SnackbarProvider>
-      {/* Your app components */}
-    </SnackbarProvider>
-  );
+  return <SnackbarProvider>{/* Your app components */}</SnackbarProvider>;
 }
 ```
 
 ### 2. Use the useSnackbar hook
 
 ```tsx
-import { useSnackbar } from 'react-light-snackbar';
+import { useSnackbar } from "react-light-snackbar";
 
 function MyComponent() {
   const { showSnackbar, hideSnackbar, hideAllSnackbars } = useSnackbar();
 
   const showSuccess = () => {
     showSnackbar({
-      message: 'Operation completed successfully!',
-      variant: 'success',
+      message: "Operation completed successfully!",
+      variant: "success",
     });
   };
 
   const showError = () => {
     showSnackbar({
-      message: 'Something went wrong!',
-      variant: 'error',
+      message: "Something went wrong!",
+      variant: "error",
       duration: 5000,
     });
   };
@@ -104,13 +100,13 @@ function MyComponent() {
 
 ### SnackbarProvider Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `children` | `ReactNode` | - | Your app components |
-| `maxSnackbars` | `number` | `3` | Maximum number of snackbars to show simultaneously |
-| `defaultPosition` | `SnackbarPosition` | `'bottom-center'` | Default position for snackbars |
-| `defaultDuration` | `number` | `4000` | Default duration in milliseconds |
-| `defaultVariant` | `SnackbarVariant` | `'default'` | Default variant for snackbars |
+| Prop              | Type               | Default           | Description                                        |
+| ----------------- | ------------------ | ----------------- | -------------------------------------------------- |
+| `children`        | `ReactNode`        | -                 | Your app components                                |
+| `maxSnackbars`    | `number`           | `3`               | Maximum number of snackbars to show simultaneously |
+| `defaultPosition` | `SnackbarPosition` | `'bottom-center'` | Default position for snackbars                     |
+| `defaultDuration` | `number`           | `4000`            | Default duration in milliseconds                   |
+| `defaultVariant`  | `SnackbarVariant`  | `'default'`       | Default variant for snackbars                      |
 
 ### useSnackbar Hook
 
@@ -130,40 +126,37 @@ Hides all currently visible snackbars.
 
 ### SnackbarOptions
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `id` | `string` | Auto-generated | Unique identifier for the snackbar |
-| `message` | `string` | - | **Required** - The message to display |
-| `variant` | `SnackbarVariant` | `'default'` | Visual style variant |
-| `position` | `SnackbarPosition` | Provider default | Position on screen |
-| `duration` | `number` | Provider default | Auto-hide duration (ms) |
-| `autoHide` | `boolean` | `true` | Whether to auto-hide |
-| `onClose` | `() => void` | - | Callback when snackbar closes |
-| `action` | `ReactNode` | - | Custom action button/component |
-| `className` | `string` | - | Additional CSS class |
-| `style` | `CSSProperties` | - | Additional inline styles |
+| Option      | Type               | Default          | Description                           |
+| ----------- | ------------------ | ---------------- | ------------------------------------- |
+| `id`        | `string`           | Auto-generated   | Unique identifier for the snackbar    |
+| `message`   | `string`           | -                | **Required** - The message to display |
+| `variant`   | `SnackbarVariant`  | `'default'`      | Visual style variant                  |
+| `position`  | `SnackbarPosition` | Provider default | Position on screen                    |
+| `duration`  | `number`           | Provider default | Auto-hide duration (ms)               |
+| `autoHide`  | `boolean`          | `true`           | Whether to auto-hide                  |
+| `onClose`   | `() => void`       | -                | Callback when snackbar closes         |
+| `action`    | `ReactNode`        | -                | Custom action button/component        |
+| `className` | `string`           | -                | Additional CSS class                  |
+| `style`     | `CSSProperties`    | -                | Additional inline styles              |
 
 ### Types
 
 #### SnackbarPosition
+
 ```tsx
-type SnackbarPosition = 
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right';
+type SnackbarPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
 ```
 
 #### SnackbarVariant
+
 ```tsx
-type SnackbarVariant = 
-  | 'default'
-  | 'success'
-  | 'error'
-  | 'warning'
-  | 'info';
+type SnackbarVariant = "default" | "success" | "error" | "warning" | "info";
 ```
 
 ## Examples
@@ -175,21 +168,21 @@ const { showSnackbar } = useSnackbar();
 
 // Success message
 showSnackbar({
-  message: 'Data saved successfully!',
-  variant: 'success',
+  message: "Data saved successfully!",
+  variant: "success",
 });
 
 // Error message with longer duration
 showSnackbar({
-  message: 'Failed to save data. Please try again.',
-  variant: 'error',
+  message: "Failed to save data. Please try again.",
+  variant: "error",
   duration: 8000,
 });
 
 // Warning message
 showSnackbar({
-  message: 'Your session will expire soon.',
-  variant: 'warning',
+  message: "Your session will expire soon.",
+  variant: "warning",
 });
 ```
 
@@ -198,16 +191,16 @@ showSnackbar({
 ```tsx
 // Top-right notification
 showSnackbar({
-  message: 'New message received',
-  position: 'top-right',
-  variant: 'info',
+  message: "New message received",
+  position: "top-right",
+  variant: "info",
 });
 
 // Bottom-left notification
 showSnackbar({
-  message: 'File uploaded',
-  position: 'bottom-left',
-  variant: 'success',
+  message: "File uploaded",
+  position: "bottom-left",
+  variant: "success",
 });
 ```
 
@@ -215,13 +208,9 @@ showSnackbar({
 
 ```tsx
 showSnackbar({
-  message: 'Item deleted from cart',
-  variant: 'warning',
-  action: (
-    <button onClick={handleUndo}>
-      UNDO
-    </button>
-  ),
+  message: "Item deleted from cart",
+  variant: "warning",
+  action: <button onClick={handleUndo}>UNDO</button>,
   duration: 6000,
 });
 ```
@@ -230,13 +219,13 @@ showSnackbar({
 
 ```tsx
 showSnackbar({
-  message: 'Custom styled notification',
-  variant: 'default',
-  className: 'my-custom-snackbar',
+  message: "Custom styled notification",
+  variant: "default",
+  className: "my-custom-snackbar",
   style: {
-    background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
-    borderRadius: '20px',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+    background: "linear-gradient(45deg, #ff6b6b, #4ecdc4)",
+    borderRadius: "20px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
   },
 });
 ```
@@ -245,8 +234,8 @@ showSnackbar({
 
 ```tsx
 showSnackbar({
-  message: 'This will not auto-hide. Click close to dismiss.',
-  variant: 'info',
+  message: "This will not auto-hide. Click close to dismiss.",
+  variant: "info",
   autoHide: false,
   duration: 0,
 });
@@ -257,16 +246,16 @@ showSnackbar({
 ```tsx
 // Show multiple snackbars in different positions
 showSnackbar({
-  message: 'Top notification',
-  position: 'top-center',
-  variant: 'info',
+  message: "Top notification",
+  position: "top-center",
+  variant: "info",
 });
 
 setTimeout(() => {
   showSnackbar({
-    message: 'Bottom notification',
-    position: 'bottom-center',
-    variant: 'success',
+    message: "Bottom notification",
+    position: "bottom-center",
+    variant: "success",
   });
 }, 500);
 ```
@@ -300,16 +289,16 @@ You can integrate with your design system by passing custom styles:
 ```tsx
 const theme = {
   colors: {
-    success: '#4caf50',
-    error: '#f44336',
-    warning: '#ff9800',
-    info: '#2196f3',
+    success: "#4caf50",
+    error: "#f44336",
+    warning: "#ff9800",
+    info: "#2196f3",
   },
 };
 
 showSnackbar({
-  message: 'Themed notification',
-  variant: 'success',
+  message: "Themed notification",
+  variant: "success",
   style: {
     background: theme.colors.success,
   },
@@ -338,8 +327,8 @@ const { showSnackbar, hideSnackbar, hideAllSnackbars } = useSnackbar();
 
 // Show and store ID
 const snackbarId = showSnackbar({
-  message: 'Processing...',
-  variant: 'info',
+  message: "Processing...",
+  variant: "info",
   autoHide: false,
 });
 
@@ -359,9 +348,45 @@ hideAllSnackbars();
 - Safari 12+
 - Edge 79+
 
+## Development
+
+### GitHub Workflows
+
+This project uses GitHub Actions for continuous integration, testing, and deployment. The following workflows are configured:
+
+- **CI**: Runs on every push and PR to main/develop branches
+- **Release**: Automatically publishes to npm when version tags are pushed
+- **Security**: Weekly security audits and vulnerability scanning
+- **CodeQL**: Advanced security analysis using GitHub's CodeQL engine
+- **Dependency Review**: Reviews dependency changes for security issues
+- **Test**: Runs tests and provides coverage reports (when tests are added)
+
+### Setup for Contributors
+
+1. **Fork and clone** the repository
+2. **Install dependencies**: `npm install`
+3. **Run development server**: `npm run dev`
+4. **Build project**: `npm run build`
+5. **Run linting**: `npm run lint`
+6. **Type checking**: `npm run type-check`
+
+### Required Secrets (for maintainers)
+
+To use all workflows, configure these secrets in the repository:
+
+- **NPM_TOKEN**: npm authentication token for publishing
+- **SNYK_TOKEN**: Snyk API token for enhanced security scanning (optional)
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+### Before submitting a PR:
+
+1. Ensure all CI checks pass
+2. Follow the existing code style
+3. Add tests for new functionality (when applicable)
+4. Update documentation if needed
 
 ## License
 

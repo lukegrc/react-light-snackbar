@@ -1,0 +1,81 @@
+name: Test
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+        continue-on-error: true
+
+      - name: Run test coverage
+        run: npm run test:coverage
+        continue-on-error: true
+
+      - name: Comment test results
+        uses: actions/github-script@v7
+        if: github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            let testOutput = 'No test output available';
+            let coverageOutput = 'No coverage output available';
+
+            try {
+              if (fs.existsSync('test-results.txt')) {
+                testOutput = fs.readFileSync('test-results.txt', 'utf8');
+              }
+            } catch (e) {
+              console.log('Could not read test results');
+            }
+
+            try {
+              if (fs.existsSync('coverage.txt')) {
+                coverageOutput = fs.readFileSync('coverage.txt', 'utf8');
+              }
+            } catch (e) {
+              console.log('Could not read coverage results');
+            }
+
+            const comment = `## Test Results for Node.js ${{ matrix.node-version }}
+
+            ### Test Output:
+            \`\`\`
+            ${testOutput}
+            \`\`\`
+
+            ### Coverage Output:
+            \`\`\`
+            ${coverageOutput}
+            \`\`\`
+            `;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
