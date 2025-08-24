@@ -56,7 +56,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^5.0.0",
     "rollup": "^3.0.0",
-    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-dts": "^6.2.3",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.6.0",
     "typescript": "^5.0.0"
