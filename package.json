@@ -31,12 +31,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lukegrech/react-light-snackbar.git"
+    "url": "https://github.com/lukegrc/react-light-snackbar.git"
   },
   "bugs": {
-    "url": "https://github.com/lukegrech/react-light-snackbar/issues"
+    "url": "https://github.com/lukegrc/react-light-snackbar/issues"
   },
-  "homepage": "https://github.com/lukegrech/react-light-snackbar#readme",
+  "homepage": "https://github.com/lukegrc/react-light-snackbar#readme",
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
