@@ -30,7 +30,10 @@ jobs:
       run: npm run type-check
     
     - name: Build project
-      run: npm run build
+      run: |
+        echo "=== Building project ==="
+        npm run build
+        echo "=== Build completed ==="
     
     - name: Debug build output
       run: |
@@ -40,8 +43,12 @@ jobs:
         ls -la
         echo "=== Dist directory contents ==="
         ls -la dist/ || echo "dist directory not found"
-        echo "=== Build script output ==="
-        npm run build --verbose
+        echo "=== Package.json scripts ==="
+        cat package.json | grep -A 10 '"scripts"'
+        echo "=== Node version ==="
+        node --version
+        echo "=== NPM version ==="
+        npm --version
     
     - name: Verify build output
       run: |
