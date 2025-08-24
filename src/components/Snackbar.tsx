@@ -195,7 +195,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(open);
   const [isExiting, setIsExiting] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const animationRef = useRef<number>();
 
   const handleClose = useCallback(() => {
