@@ -75,11 +75,18 @@ const SNACKBAR_STYLES = `
   .snackbar--bottom-left {
     bottom: 24px;
     left: 24px;
+    transform: translateY(100px);
+  }
+  .snackbar--bottom-left.snackbar--entering {
+    transform: translateY(0);
+  }
+  .snackbar--bottom-left.snackbar--exiting {
+    transform: translateY(100px);
   }
   .snackbar--bottom-center {
     bottom: 24px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 100px);
   }
   .snackbar--bottom-center.snackbar--entering {
     transform: translate(-50%, 0);
@@ -90,6 +97,13 @@ const SNACKBAR_STYLES = `
   .snackbar--bottom-right {
     bottom: 24px;
     right: 24px;
+    transform: translateY(100px);
+  }
+  .snackbar--bottom-right.snackbar--entering {
+    transform: translateY(0);
+  }
+  .snackbar--bottom-right.snackbar--exiting {
+    transform: translateY(100px);
   }
   .snackbar--success {
     background: var(--snackbar-bg-success);
@@ -194,6 +208,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
   children,
 }) => {
   const [isVisible, setIsVisible] = useState(open);
+  const [isEntering, setIsEntering] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const animationRef = useRef<number>();
@@ -213,15 +228,30 @@ export const Snackbar: React.FC<SnackbarProps> = ({
       setIsVisible(true);
       setIsExiting(false);
 
+      // Add a small delay to trigger the entering animation
+      const enterTimer = setTimeout(() => {
+        setIsEntering(true);
+      }, 10);
+
       if (autoHide && duration > 0) {
         timeoutRef.current = setTimeout(() => {
           handleClose();
         }, duration);
       }
+
+      return () => {
+        clearTimeout(enterTimer);
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
     } else {
       handleClose();
+      return undefined;
     }
+  }, [open, duration, autoHide, handleClose]);
 
+  useEffect(() => {
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -230,7 +260,7 @@ export const Snackbar: React.FC<SnackbarProps> = ({
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [open, duration, autoHide, handleClose]);
+  }, []);
 
   const handleActionClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -241,13 +271,14 @@ export const Snackbar: React.FC<SnackbarProps> = ({
 
   const positionClass = `snackbar--${position.replace("-", "-")}`;
   const variantClass = `snackbar--${variant}`;
+  const enterClass = isEntering ? "snackbar--entering" : "";
   const exitClass = isExiting ? "snackbar--exiting" : "";
 
   return (
     <>
       <style>{SNACKBAR_STYLES}</style>
       <div
-        className={`snackbar ${positionClass} ${variantClass} ${exitClass} ${className}`}
+        className={`snackbar ${positionClass} ${variantClass} ${enterClass} ${exitClass} ${className}`}
         style={style}
         role="alert"
         aria-live="polite"
